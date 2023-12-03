@@ -58,11 +58,34 @@ moneyManager.sendMoneyCallback = data => {
 }
 
 const favoritesWidget = new FavoritesWidget()
-
-ApiConnector.getFavorites(data => {
-	if (data.success) {
+ApiConnector.getFavorites(response => {
+	if (response.success) {
 		favoritesWidget.clearTable()
-		favoritesWidget.fillTable(data)
-		moneyManager.updateUsersList(data)
+		favoritesWidget.fillTable(response.data)
+		moneyManager.updateUsersList(response.data)
 	}
 })
+favoritesWidget.addUserCallback = data => {
+	ApiConnector.addUserToFavorites(data, response => {
+		if (response.success) {
+			favoritesWidget.setMessage(response, 'Успех')
+			favoritesWidget.clearTable()
+			favoritesWidget.fillTable(response.data)
+			moneyManager.updateUsersList(response.data)
+		} else {
+			favoritesWidget.setMessage(response, 'Ошибка')
+		}
+	})
+}
+favoritesWidget.removeUserCallback = data => {
+	ApiConnector.removeUserFromFavorites(data, response => {
+		if (response.success) {
+			favoritesWidget.setMessage(response, 'Успех')
+			favoritesWidget.clearTable()
+			favoritesWidget.fillTable(response.data)
+			moneyManager.updateUsersList(response.data)
+		} else {
+			favoritesWidget.setMessage(response, 'Ошибка')
+		}
+	})
+}
