@@ -5,7 +5,7 @@ userForm.loginFormCallback = data => {
 		if (response.success) {
 			location.reload()
 		} else {
-			userForm.setRegisterErrorMessage(response.error)
+			userForm.setLoginErrorMessage(response.error)
 		}
 	})
 }

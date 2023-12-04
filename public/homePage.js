@@ -30,9 +30,9 @@ moneyManager.addMoneyCallback = data => {
 	ApiConnector.addMoney(data, response => {
 		if (response.success) {
 			ProfileWidget.showProfile(response.data)
-			moneyManager.setMessage(response, 'Успех')
+			moneyManager.setMessage(true, 'Успех')
 		} else {
-			moneyManager.setMessage(response, 'Ошибка')
+			moneyManager.setMessage(false, response.error)
 		}
 	})
 }
@@ -40,9 +40,9 @@ moneyManager.conversionMoneyCallback = data => {
 	ApiConnector.convertMoney(data, response => {
 		if (response.success) {
 			ProfileWidget.showProfile(response.data)
-			moneyManager.setMessage(response, 'Успех')
+			moneyManager.setMessage(true, 'Успех')
 		} else {
-			moneyManager.setMessage(response, 'Ошибка')
+			moneyManager.setMessage(false, response.error)
 		}
 	})
 }
@@ -50,9 +50,9 @@ moneyManager.sendMoneyCallback = data => {
 	ApiConnector.transferMoney(data, response => {
 		if (response.success) {
 			ProfileWidget.showProfile(response.data)
-			moneyManager.setMessage(response, 'Успех')
+			moneyManager.setMessage(true, 'Успех')
 		} else {
-			moneyManager.setMessage(response, 'Ошибка')
+			moneyManager.setMessage(false, response.error)
 		}
 	})
 }
@@ -68,24 +68,24 @@ ApiConnector.getFavorites(response => {
 favoritesWidget.addUserCallback = data => {
 	ApiConnector.addUserToFavorites(data, response => {
 		if (response.success) {
-			favoritesWidget.setMessage(response, 'Успех')
+			favoritesWidget.setMessage(true, 'Успех')
 			favoritesWidget.clearTable()
 			favoritesWidget.fillTable(response.data)
 			moneyManager.updateUsersList(response.data)
 		} else {
-			favoritesWidget.setMessage(response, 'Ошибка')
+			favoritesWidget.setMessage(false, response.error)
 		}
 	})
 }
 favoritesWidget.removeUserCallback = data => {
 	ApiConnector.removeUserFromFavorites(data, response => {
 		if (response.success) {
-			favoritesWidget.setMessage(response, 'Успех')
+			favoritesWidget.setMessage(true, 'Успех')
 			favoritesWidget.clearTable()
 			favoritesWidget.fillTable(response.data)
 			moneyManager.updateUsersList(response.data)
 		} else {
-			favoritesWidget.setMessage(response, 'Ошибка')
+			favoritesWidget.setMessage(false, response.error)
 		}
 	})
 }
